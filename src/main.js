@@ -5,6 +5,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueFire from 'vuefire'
+require('./assets/css/app.css')
 
 Vue.config.productionTip = false
 Vue.use(vueFire)
@@ -14,8 +15,5 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App },
-  data:{
-    first: 'hello'
-  }
+  components: { App }
 })
