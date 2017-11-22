@@ -7691,8 +7691,8 @@ input[type="checkbox"]:disabled:checked:after,
   
 #footer>.container{
   padding-left:15px;
-  padding-right:15px
-  
+  padding-right:15px;
+  margin-top: 15px;
   }
 
   .user{

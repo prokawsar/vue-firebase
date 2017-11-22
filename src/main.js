@@ -5,7 +5,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import vueFire from 'vuefire'
-require('./assets/css/app.css')
+require('./assets/css/app.css') //loading bootstrap css file
 
 Vue.config.productionTip = false
 Vue.use(vueFire)
