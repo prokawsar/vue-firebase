@@ -18,12 +18,15 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
         <ul class="nav navbar-nav">
           <li><router-link to="/firebase">Firebase</router-link></li>
+          <li><router-link to="/chat">Chat</router-link></li>
           <li><router-link to="/about">About</router-link></li>
         
         </ul>
       
         <ul class="nav navbar-nav navbar-right">
-         <li><router-link to="/projects">Projects</router-link></li>
+          <li><router-link to="/login">Login</router-link></li>
+          <li><router-link to="/register">Register</router-link></li>
+          <li><router-link to="/projects">Projects</router-link></li>
         
         </ul>
       </div>
