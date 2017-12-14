@@ -5,14 +5,14 @@
                 <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="">
+                <div class="panel-body form-horizontal">
+                    <!-- <form class="form-horizontal" action=""> -->
                      
                         <div class="form-group">
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                <input id="email" v-model="email" type="email" class="form-control" name="email" value="" required autofocus>
 
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" v-model="password" type="password" class="form-control" name="password" required>
 
                             </div>
                         </div>
@@ -37,20 +37,55 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                     
-                                <a class="btn btn-link" href="">
+                            <div class="col-md-4">
+                                 <router-link to="register" class="btn btn-link">I don't have account</router-link>
+
+                            </div>
+
+                            <div class="col-md-8">
+
+                                <a class="btn btn-link" href="#">
                                     Forgot Your Password?
                                 </a>
-                                <button type="submit" class="btn btn-primary">
+                                <button v-on:click="login" type="submit" class="btn btn-primary">
                                     Login
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import firebase from 'firebase'  
+import Router from '../../router';
+
+export default {
+    name: 'login',
+    data: function(){
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods:{
+        login: function(){
+            firebase.auth().signInWithEmailAndPassword (this.email, this.password).then(
+                (user) => {
+                    alert('Well ! You are Logged In')
+                    Router.push('/')
+                    location.reload();
+                },
+                (err) => {
+                    alert('Opps. ' + err.message)
+                }
+            )
+        }
+    }
+}
+</script>
+

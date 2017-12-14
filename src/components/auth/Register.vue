@@ -5,14 +5,14 @@
                 <div class="panel panel-default">
                 <div class="panel-heading">Register</div>
 
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="">
+                <div class="panel-body form-horizontal">
+                    <!-- <form class="form-horizontal" method="POST" action=""> -->
                         
                         <div class="form-group">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
+                                <input v-model="name" id="name" type="text" class="form-control" name="name" value="" required autofocus>
 
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="" required>
+                                <input id="email" v-model="email" type="email" class="form-control" name="email" value="" required>
 
                             </div>
                         </div>
@@ -30,30 +30,53 @@
                             <label for="password" class="col-md-4 control-label">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                <input id="password" v-model="password" type="password" class="form-control" name="password" required>
 
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
+                        
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary pull-right">
+                                <router-link to="login" class="btn btn-link">I have account</router-link>
+
+                                <button v-on:click="register" type="submit" class="btn btn-primary pull-right">
                                     Register
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+
+import firebase from 'firebase'
+
+export default {
+    name: 'register',
+    data: function(){
+        return {
+            name: '',
+            email: '',
+            password: ''
+        }
+    },
+    methods:{
+        register: function(){
+            firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+                function(user){
+                    alert('Your account has been created')
+                },
+                function(err){
+                    alert('Opps. ' + err.message)
+                }
+            )
+        }
+    }
+}
+</script>

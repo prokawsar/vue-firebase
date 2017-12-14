@@ -17,17 +17,18 @@
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
         <ul class="nav navbar-nav">
-          <li><router-link to="/firebase">Firebase</router-link></li>
-          <li><router-link to="/chat">Chat</router-link></li>
+          <li v-if="isAuth"><router-link to="/firebase">Firebase</router-link></li>
+          <li v-if="isAuth"><router-link to="/chat">Chat</router-link></li>
           <li><router-link to="/about">About</router-link></li>
         
         </ul>
       
         <ul class="nav navbar-nav navbar-right">
-          <li><router-link to="/login">Login</router-link></li>
-          <li><router-link to="/register">Register</router-link></li>
+          <li v-if="!isAuth"><router-link to="/login">Login</router-link></li>
+          <li v-if="!isAuth"><router-link to="/register">Register</router-link></li>
           <li><router-link to="/projects">Projects</router-link></li>
-        
+          <li v-if="isAuth"><a style="cursor: pointer" v-on:click="logOut" >Log out</a></li>
+          
         </ul>
       </div>
     </div>
@@ -42,3 +43,32 @@
     </div>
   </div> <!--app div -->
 </template>
+
+<script>
+import firebase from 'firebase'
+import Router from './router';
+
+export default {
+  name: 'app',
+  methods:{
+    logOut: function(){
+        firebase.auth().signOut().then(function(){
+            // console.log('Signed Out');
+            alert('Ohh ! You Signed out')
+            Router.push('login')
+            location.reload();
+          }, 
+          function(error) {
+            alert('Opps ! ' + error)
+        });
+    } 
+  },
+  computed:{
+    isAuth: function(){
+      if(firebase.auth().currentUser) return true
+      else false
+    }
+  } 
+}
+</script>
+
