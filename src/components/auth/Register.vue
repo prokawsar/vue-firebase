@@ -56,6 +56,8 @@
 <script>
 
 import firebase from 'firebase'
+import { userRef } from '../../firebase'
+import Router from '../../router'
 
 export default {
     name: 'register',
@@ -68,15 +70,23 @@ export default {
     },
     methods:{
         register: function(){
+            
             firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
-                function(user){
-                    alert('Your account has been created')
+                function(user){                   
+                    alert('Your account has been created and logged in')        
+                    // userRef.push({ email: user.email, userID: user.uid })
+                    Router.push('/')
+                    location.reload()
                 },
                 function(err){
                     alert('Opps. ' + err.message)
                 }
-            )
+            ),
+            userRef.push({name: this.name, email: this.email })
+            
         }
+
     }
+
 }
 </script>

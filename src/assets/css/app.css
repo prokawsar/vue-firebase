@@ -7748,3 +7748,9 @@ a:visited{
 .badge-wrong {
   background-color: #FB503B !important;
 }
+
+.chatEmail{
+  font-weight: 100;
+  font-style: italic;
+  font-size: 12px;
+}

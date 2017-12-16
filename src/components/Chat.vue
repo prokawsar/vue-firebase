@@ -5,8 +5,8 @@
 
             <ul class="list-group col-md-6">
                 <li class="list-group-item active text-center">Chat/Comment/Notification </li>
-                <li class="list-group-item" v-for="value in chat.message" :key=value.index>
-                    {{ value }}
+                <li class="list-group-item" v-for="value in chats" :key=value.index>
+                    {{ value.message }} <small class="chatEmail pull-right">{{ value.userName }}</small>
                 </li>
 
                 <input type="text" class="form-control" name="" placeholder="Type your message..." 
@@ -23,17 +23,22 @@
 
 <script>
 import firebase from 'firebase'
-import Router from '../router';
+import Router from '../router'
+import { chatRef } from '../firebase'
 
 export default {
-    
+
     data(){
         return{
+            email: firebase.auth().currentUser.email,
             message: '',
             chat:{
                 message: []
             }
         }
+    },
+    firebase:{
+        chats: chatRef
     },
     methods: {
         send: function(){
@@ -45,6 +50,7 @@ export default {
 
             if(this.message != 0){
                 this.chat.message.push(this.message);
+                chatRef.push({userName: this.email, message: this.message, time:false, })
                 this.message = ''
             }
             

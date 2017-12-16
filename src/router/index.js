@@ -8,6 +8,7 @@ import Register from '@/components/auth/Register'
 import AddMe from '@/components/AddMe'
 import Projects from '@/components/Projects'
 import NotFound from '@/components/NotFound'
+import Users from '@/components/Users'
 import firebase from 'firebase'
 
 Vue.use(Router)
@@ -55,6 +56,12 @@ let router = new Router({
       path: '/projects',
       name: 'Projects',
       component: Projects
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
+     
     },
     {
       path: '*',
