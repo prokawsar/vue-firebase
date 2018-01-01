@@ -22,7 +22,12 @@
 </template>
 
 <script>
+    import { nameRef } from '../firebase'
+
     export default {
+        firebase:{
+            names: nameRef
+        },
         props:[
             'color'
         ],
