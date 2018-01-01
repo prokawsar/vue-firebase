@@ -8,10 +8,12 @@ import Register from '@/components/auth/Register'
 import AddMe from '@/components/AddMe'
 import Projects from '@/components/Projects'
 import NotFound from '@/components/NotFound'
+import Users from '@/components/Users'
+import firebase from 'firebase'
 
 Vue.use(Router)
 
-export default new Router({
+let router = new Router({
   routes: [
     {
       path: '/',
@@ -27,7 +29,10 @@ export default new Router({
     {
       path: '/chat',
       name: 'Chat',
-      component: Chat
+      component: Chat,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
@@ -42,12 +47,21 @@ export default new Router({
     {
       path: '/firebase',
       name: 'AddMe',
-      component: AddMe
+      component: AddMe,
+      meta:{
+        requiresAuth: true
+      }
     },
     {
       path: '/projects',
       name: 'Projects',
       component: Projects
+    },
+    {
+      path: '/users',
+      name: 'Users',
+      component: Users
+     
     },
     {
       path: '*',
@@ -57,3 +71,15 @@ export default new Router({
   ]
   // mode: 'history'
 })
+
+router.beforeEach((to, from, next) => {
+  let currentUser = firebase.auth().currentUser;
+  let requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if (requiresAuth && !currentUser) next('login')
+  else if(!requiresAuth) next()
+  else if (!requiresAuth && currentUser) next('chat')
+  else next()
+})
+
+export default router
